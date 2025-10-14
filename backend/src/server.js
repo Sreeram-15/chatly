@@ -1,0 +1,11 @@
+import express from 'express';
+import dotenv from 'dotenv';
+import messagesRoutes from '../routes/message.route.js';
+import authRoutes from '../routes/auth.route.js';
+dotenv.config();
+const app=express();
+app.use("/api/auth",authRoutes);
+app.use("/api/messages",messagesRoutes);
+const PORT=process.env.PORT||3000;
+// console.log(process.env);
+app.listen(PORT,()=>console.log(`hello from server by port ${PORT}`));
