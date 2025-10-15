@@ -34,13 +34,13 @@ export const signup = async (req, res) => {
 
     if (newUser) {
         // console.log(newUser._id);
-      generateToken(newUser._id, res);
-      await newUser.save();
+      const savedUser=await newUser.save();
+      generateToken(savedUser._id, res);
       res.status(201).json({
-        _id: newUser._id,
-        fullname: newUser.fullname,
-        email: newUser.email,
-        profilPic: newUser.profilPic,
+        _id: savedUser._id,
+        fullname: savedUser.fullname,
+        email: savedUser.email,
+        profilPic: savedUser.profilPic,
       });
     } else {
         res.status(400).json({ message: "Invalid User Data" });
