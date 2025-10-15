@@ -6,7 +6,7 @@ export const connectDb=async ()=>{
         if(!MONGO_URL){
             throw new Error("MONGO_URI is not set");
         }
-        const conn=await mongoose.connect(process.env.MONGO_URL);
+        const conn=await mongoose.connect(MONGO_URL);
         console.log("MongoDb connected: ",conn.connection.host);
 
     }catch(err){
