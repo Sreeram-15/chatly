@@ -1,15 +1,11 @@
 import { Router } from "express";
+import { login, Logout, signup } from "../controllers/autn.controller.js";
 const router=Router();
-router.get("/singnup",(req,res)=>{
-    res.send("Signup endpoint");
-})
 
-router.get("/login",(req,res)=>{
-    res.send("Login login");
-})
+router.post("/signup",signup);
 
-router.get("/logout",(req,res)=>{
-    res.send("Logout logout");
-})
+router.get("/login",login);
+
+router.get("/logout",Logout);
 
 export default router;
