@@ -64,11 +64,21 @@ export const signup = async (req, res) => {
   }
 };
 
-export const login = (req, res) => {
-  console.log("On Login page");
-  res.send("Login login");
+export const login = async (req, res) => {
+  const {email,password}=req.body;
+  try {
+    const user=await User.findOne(email);
+    if(!user){
+      return res.status(404).json({message:"Invalid credintials"});
+      //never tell the client which one is incorrect email or password
+    }
+  } catch (error) {
+    
+  }
+
+
 };
 
-export const Logout = (req, res) => {
+export const Logout = async (req, res) => {
   res.send("Logout logout");
 };
