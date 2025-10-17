@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
-
+import { ENV } from './env';
 export const connectDb=async ()=>{
     try{
-        const {MONGO_URL}=process.env;
+        const MONGO_URL=ENV.MONGO_URL;
         if(!MONGO_URL){
             throw new Error("MONGO_URI is not set");
         }
