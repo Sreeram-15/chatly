@@ -21,7 +21,7 @@ export const signup = async (req, res) => {
     if (!emailregex.test(email)) {
       return res.status(400).json({ message: "Invalid email format" });
     }
-    const user = await User.findOne({email});
+    const user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ message: "Email already Exists" });
     }
@@ -36,8 +36,8 @@ export const signup = async (req, res) => {
     });
 
     if (newUser) {
-        // console.log(newUser._id);
-      const savedUser=await newUser.save();
+      // console.log(newUser._id);
+      const savedUser = await newUser.save();
       generateToken(savedUser._id, res);
       res.status(201).json({
         _id: savedUser._id,
@@ -45,15 +45,17 @@ export const signup = async (req, res) => {
         email: savedUser.email,
         profilPic: savedUser.profilPic,
       });
-      try{
-        await sendWelcomeEmail(savedUser.email,savedUser.fullname,ENV.CLIENT_URL)
-      }catch(error){
-        console.log("Failed to send an email:  ",error);
+      try {
+        await sendWelcomeEmail(
+          savedUser.email,
+          savedUser.fullname,
+          ENV.CLIENT_URL
+        );
+      } catch (error) {
+        console.log("Failed to send an email:  ", error);
       }
-
-
     } else {
-        res.status(400).json({ message: "Invalid User Data" });
+      res.status(400).json({ message: "Invalid User Data" });
     }
     // res.send("Signup endpoint");
   } catch (err) {
@@ -65,33 +67,34 @@ export const signup = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-  const {email,password}=req.body;
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
   try {
-    const user=await User.findOne({email});
-    if(!user){
-      return res.status(404).json({message:"Invalid credintials"});
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "Invalid credentials" });
       //never tell the client which one is incorrect email or password
     }
-    const isCorrectPassword=await bcrypt.compare(password,user.password);
+    const isCorrectPassword = await bcrypt.compare(password, user.password);
     // console.log(await isCorrectPassword);
-    if(!isCorrectPassword)return res.status(404).json({message:"Invalid credintials"});
-    generateToken(user._id,res);
+    if (!isCorrectPassword)
+      return res.status(404).json({ message: "Invalid credentials" });
+    generateToken(user._id, res);
     res.status(200).json({
-      _id:user.id,
-      fullname:user.fullname,
-      email:user.email,
-      profilPic:user.profilePic
-    })
-
+      _id: user._id,
+      fullname: user.fullname,
+      email: user.email,
+      profilPic: user.profilePic,
+    });
   } catch (error) {
-    console.error("Error in login controller: ",error);
-    res.status(500).json({message:"Internal server error"});
+    console.error("Error in login controller: ", error);
+    res.status(500).json({ message: "Internal server error" });
   }
-
-
 };
 
 export const Logout = async (_, res) => {
-  res.cookie("jwt","",{maxAge:0});
-  res.status(200).json({message:"Logged out successfully"});
+  res.cookie("jwt", "", { maxAge: 0 });
+  res.status(200).json({ message: "Logged out successfully" });
 };
