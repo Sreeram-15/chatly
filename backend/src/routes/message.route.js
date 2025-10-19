@@ -1,11 +1,13 @@
 import { Router } from "express";
+import { getAllContacts, getChatPartners, getMessagesByUserId, sendMessage } from "../controllers/message.controller.js";
+import { protectedRoute } from "../middleware/protectedroute.js";
+import { arcjetProtection } from "../middleware/arcjet.middleware.js";
 
 const router=Router();
-router.get("/send",(req,res)=>{
-    res.send("messages send End Point");
-});
-router.get("/recive",(req,res)=>{
-    res.send("messages recive End Point");
-});
+router.use(arcjetProtection,protectedRoute);
+router.get("/contacts",getAllContacts);
+router.get("/chats",getChatPartners);
+router.get("/:id",getMessagesByUserId);
+router.post("/send/:id",sendMessage);
 
 export default router;
