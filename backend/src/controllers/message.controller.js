@@ -23,12 +23,12 @@ export const getMessagesByUserId = async (req, res) => {
     const messages = await Message.find({
       $or: [
         {
-          SenderId: myId,
-          ReciverId: userToChatId,
+          senderId: myId,
+          reciverId: userToChatId,
         },
         {
-          SenderId: userToChatId,
-          ReciverId: myId,
+          senderId: userToChatId,
+          reciverId: myId,
         },
       ],
     });
@@ -41,17 +41,27 @@ export const getMessagesByUserId = async (req, res) => {
 
 export const sendMessage = async (req, res) => {
   try {
-    const SenderId = req.user._id;
-    const { id: ReciverId } = req.params;
+    const senderId = req.user._id;
+    const { id: reciverId } = req.params;
     const { text, image } = req.body;
+    if(!(text||image)){
+        return res.status(400).json({message:"text or image is required"})
+    }
+    if(senderId.equals(reciverId)){
+        return res.status(400).json({message:"Cannot send Message to yourself"});
+    }
+    const reciverExists=User.find({_id:reciverId});
+    if(!reciverExists){
+        return res.status(404).json({message:"Reciver Not found"});
+    }
     let imageUrl;
     if (image) {
       const uploadResponse = await cloudinary.uploader.upload(image);
       imageUrl = uploadResponse.secure_url;
     }
     const newMessage = new Message({
-      SenderId,
-      ReciverId,
+      senderId,
+      reciverId,
       text,
       image: imageUrl,
     });
@@ -71,17 +81,18 @@ export const getChatPartners = async (req, res) => {
     const loggedInUserId = req.user._id;
     // console.log("fetching messages please wait for a while");
     const messages = await Message.find({
-      $or: [{ SenderId: loggedInUserId }, { ReciverId: loggedInUserId }],
+      $or: [{ senderId: loggedInUserId }, { reciverId: loggedInUserId }],
     });
     const chatPartnerIds =[
       ...new Set(
         messages.map((msg) =>
-          msg.SenderId.toString() === loggedInUserId.toString()
-            ? msg.ReciverId.toString()
-            : msg.SenderId.toString()
+          msg.senderId.toString() === loggedInUserId.toString()
+            ? msg.reciverId.toString()
+            : msg.senderId.toString()
         )
       ),
-    ].map((id)=>new Types.ObjectId(id));
+    ];
+    // .map((id)=>new Types.ObjectId(id));
     // console.log(chatPartnerIds);
     const chatPartnerNames=await User.find(
         {_id
@@ -89,7 +100,7 @@ export const getChatPartners = async (req, res) => {
         } 
     )
     // .select("-password");
-    console.log(chatPartnerNames);
+    // console.log(chatPartnerNames);
     return res.status(200).json(chatPartnerNames);
   } catch (error) {
     console.log("Error at fetching chatPartners Endpoint:", error);
