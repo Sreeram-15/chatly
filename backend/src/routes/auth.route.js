@@ -8,7 +8,7 @@ router.use(arcjetProtection);
 
 router.post("/signup",signup);
 
-router.post("/login",arcjetProtection,login);
+router.post("/login",login);
 
 router.post("/logout",Logout);
 
