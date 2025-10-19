@@ -5,7 +5,7 @@ const messageSchema = new mongoose.Schema(
     senderId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required:true
+      required: true,
     },
     reciverId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -14,14 +14,16 @@ const messageSchema = new mongoose.Schema(
     },
     text: {
       type: String,
+      trim: true,
+      maxlength: 2000,
     },
     image: {
       type: String,
     },
   },
-  {timestamps: true}//Created and Updated at
+  { timestamps: true } //Created and Updated at
 );
 
-const Message=mongoose.model("Message",messageSchema);
+const Message = mongoose.model("Message", messageSchema);
 
 export default Message;
