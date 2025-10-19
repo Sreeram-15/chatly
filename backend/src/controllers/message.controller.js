@@ -50,7 +50,7 @@ export const sendMessage = async (req, res) => {
     if(senderId.equals(reciverId)){
         return res.status(400).json({message:"Cannot send Message to yourself"});
     }
-    const reciverExists=User.find({_id:reciverId});
+    const reciverExists=await User.find({_id:reciverId});
     if(!reciverExists){
         return res.status(404).json({message:"Reciver Not found"});
     }
@@ -93,7 +93,7 @@ export const getChatPartners = async (req, res) => {
       ),
     ];
     // .map((id)=>new Types.ObjectId(id));
-    // console.log(chatPartnerIds);
+    console.log(messages);
     const chatPartnerNames=await User.find(
         {_id
             :{$in:(chatPartnerIds)}
