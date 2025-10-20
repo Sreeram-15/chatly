@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
-import BoarderAnimatedContainer from "../components/BoarderAnimatedContainer";
+import BorderAnimatedContainer from "../components/BorderAnimatedContainer";
 import { UserIcon, MessageCircleIcon, MailIcon, LockIcon,LoaderIcon } from "lucide-react";
 import { Link } from "react-router";
 
@@ -14,13 +14,13 @@ const SignupPage = () => {
 
 
   const handleSubmit = (e) => {
-    e.preventDefault;
+    e.preventDefault();
     signup(formData);
   };
   return (
     <div className="w-full flex items-center justify-center p-4 bg-slate-900">
       <div className="relative w-full max-w-6xl md:h-[800px] h-[650px]">
-        <BoarderAnimatedContainer>
+        <BorderAnimatedContainer>
           <div className="w-full flex flex-col md:flex-row">
             {/* FORM CLOUMN - LEFT SIDE */}
             <div className="md:w-1/2 p-8 flex items-center justify-center md:border-r border-slate-600/30">
@@ -40,7 +40,7 @@ const SignupPage = () => {
                   <div>
                     <label className="auth-input-label">Full Name</label>
                     <div className="relative">
-                      <UserIcon className="auth-input-label" />
+                      <UserIcon className="auth-input-icon" />
                       <input
                         type="text"
                         value={formData.fullname}
@@ -60,7 +60,7 @@ const SignupPage = () => {
                   <div>
                     <label className="auth-input-label">Email</label>
                     <div className="relative">
-                      <MailIcon className="auth-input-label" />
+                      <MailIcon className="auth-input-icon" />
                       <input
                         type="email"
                         value={formData.email}
@@ -77,7 +77,7 @@ const SignupPage = () => {
                   <div>
                     <label className="auth-input-label">Password</label>
                     <div className="relative">
-                      <LockIcon className="auth-input-label" />
+                      <LockIcon className="auth-input-icon" />
                       <input
                         type="password"
                         value={formData.password}
@@ -137,7 +137,7 @@ const SignupPage = () => {
               </div>
             </div>
           </div>
-        </BoarderAnimatedContainer>
+        </BorderAnimatedContainer>
       </div>
     </div>
   );
