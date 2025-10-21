@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { axioInstance } from "../lib/axios";
 import toast from "react-hot-toast";
-import { data } from "react-router";
 
 export const useAuthStore=create((set)=>({
         authUser:null,
@@ -15,7 +14,7 @@ export const useAuthStore=create((set)=>({
                 const res=await axioInstance.get("/auth/check");
                 set({authUser:res.data});
             } catch (error) {
-                console.log("Error in AuthCheck:",error);
+                // console.log("Error in AuthCheck:",error);
                 set({authUser:null});
             }finally{
                 set({
@@ -33,7 +32,7 @@ export const useAuthStore=create((set)=>({
             } catch (error) {
                 // console.log("Error in signingup:-",error);
                 toast.error(error.response?.data?.message || "Signup failed. Please try again.");
-                console.error("Signup failed:", error);
+                // console.error("Signup failed:", error);
             }finally{
                 set({isSigningUp:false});
             }
@@ -48,7 +47,7 @@ export const useAuthStore=create((set)=>({
             } catch (error) {
                 // console.log("Error in signingup:-",error);
                 toast.error(error.response?.data?.message || "Login failed. Please try again.");
-                console.error("Login failed:", error);
+                // console.error("Login failed:", error);
             }finally{
                 set({isLoggingIn:false});
             }
@@ -62,7 +61,7 @@ export const useAuthStore=create((set)=>({
                 toast.success("Logged out successfully");
                 
             } catch (error) {
-                console.log("Error in logging Out:",error);
+                // console.log("Error in logging Out:",error);
                 toast.error(error.response?.data?.message || "Logged out failed. Please try again.");
             }finally{
             set({isLoggingOut:false});

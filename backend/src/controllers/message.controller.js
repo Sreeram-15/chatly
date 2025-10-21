@@ -93,7 +93,7 @@ export const getChatPartners = async (req, res) => {
       ),
     ];
     // .map((id)=>new Types.ObjectId(id));
-    console.log(messages);
+    // console.log(messages);
     const chatPartnerNames=await User.find(
         {_id
             :{$in:(chatPartnerIds)}
