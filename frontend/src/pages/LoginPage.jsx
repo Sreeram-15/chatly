@@ -13,7 +13,7 @@ const LoginPage =  () => {
 
 
   const handleSubmit = (e) => {
-    console.log("handling login click");
+    // console.log("handling login click");
     e.preventDefault();
     login(formData);
   };
@@ -51,7 +51,7 @@ const LoginPage =  () => {
                           setFormData({ ...formData, email: e.target.value });
                         }}
                         className="input"
-                        placeholder="surya@gmailcom"
+                        placeholder="surya@gmail.com"
                       />
                     </div>
                   </div>
@@ -109,7 +109,7 @@ const LoginPage =  () => {
                   className="w-full h-auto object-contain"
                 />
                 <div className="mt-6 text-center">
-                  <h3 className="text-xl font-medium text-cyan-400">Connect anytime, anyware</h3>
+                  <h3 className="text-xl font-medium text-cyan-400">Connect anytime, anywhere</h3>
 
                   <div className="mt-4 flex justify-center gap-4">
                     <span className="auth-badge">Free</span>
