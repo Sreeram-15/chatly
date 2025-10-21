@@ -27,7 +27,7 @@ export const useChatStore = create((set,get) => ({
         // console.log(res.data);
         set({allContacts:res?.data?.filteredUsers});
     } catch (error) {
-        console.log("Error in getting all contacts frontend:",error);
+        // console.log("Error in getting all contacts frontend:",error);
         toast.error(res.response?.data?.message || "Internal Server Error");
     }finally{
         set({isUsersLoading:false});

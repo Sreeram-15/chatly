@@ -9,7 +9,7 @@ export const protectedRoute = async (req, res, next) => {
     // console.log(req.cookies);
     // console.log(req.cookies.jwt)
     if (!token) {
-      console.log("Unauthorized- No token provided");
+      // console.log("Unauthorized- No token provided");
       return res
         .status(401)
         .json({ message: "Unauthorized - Please login to update profile" });
@@ -24,7 +24,7 @@ export const protectedRoute = async (req, res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    console.log("Error in protectedRoute:", error);
+    // console.log("Error in protectedRoute:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
