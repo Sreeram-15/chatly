@@ -10,7 +10,7 @@ export const useChatStore = create((set,get) => ({
   selectedUser: null,
   isUsersLoading: false,
   isMessagesLoading: false,
-  isSoundEnabled: localStorage.getItem("isSoundEnabled"),
+  isSoundEnabled: JSON.parse(localStorage.getItem("isSoundEnabled"))===true,
 
   toggleSound:()=>{
     localStorage.setItem("isSoundEnabled",!get().isSoundEnabled);
@@ -25,10 +25,10 @@ export const useChatStore = create((set,get) => ({
         set({isUsersLoading:true});
         const res=await axioInstance.get("/messages/contacts");
         // console.log(res.data);
-        set({allContacts:res?.data?.filteredUsers});
+        set({allContacts:res?.data?.filteredUsers??[]});
     } catch (error) {
         // console.log("Error in getting all contacts frontend:",error);
-        toast.error(res.response?.data?.message || "Internal Server Error");
+        toast.error(error?.response?.data?.message || "Internal Server Error");
     }finally{
         set({isUsersLoading:false});
     }
