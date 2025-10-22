@@ -86,9 +86,7 @@ export const getChatPartners = async (req, res) => {
     const chatPartnerIds =[
       ...new Set(
         messages.map((msg) =>
-          msg.senderId.toString() === loggedInUserId.toString()
-            ? msg.reciverId.toString()
-            : msg.senderId.toString()
+          msg.senderId.toString() === loggedInUserId.toString()? msg.reciverId.toString(): msg.senderId.toString()
         )
       ),
     ];
@@ -98,8 +96,7 @@ export const getChatPartners = async (req, res) => {
         {_id
             :{$in:(chatPartnerIds)}
         } 
-    )
-    // .select("-password");
+    ).select("-password");
     // console.log(chatPartnerNames);
     return res.status(200).json(chatPartnerNames);
   } catch (error) {
