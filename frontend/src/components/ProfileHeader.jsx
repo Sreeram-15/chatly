@@ -10,14 +10,27 @@ const ProfileHeader = () => {
   const { isSoundEnabled, toggleSound } = useChatStore();
   const [selectedImg, setSelectedImg] = useState(null);
   const fileInputRef = useRef(null);
+
+  if (!authUser) {
+    return null; // or a loading skeleton
+  }
+
   const handleImageUpload = (e) => {
-    console.log("Inside handleImageUpload");
+    // console.log("Inside handleImageUpload");
     const file=e.target.files[0];
     if(!file){
-      console.log("early return");
+      // console.log("early return");
       return
     }
     // console.log(file);
+
+// Validate file size (e.g., 5MB limit)
+  const MAX_SIZE = 10 * 1024 * 1024; // 5MB in bytes
+  if(file.size > MAX_SIZE){
+    toast.error("Image size must be less than 10MB");
+    return;
+  }
+
     const reader=new FileReader();
     reader.readAsDataURL(file);
 
@@ -26,7 +39,10 @@ const ProfileHeader = () => {
       setSelectedImg(base64Image);
       // console.log("Selected image is:-",base64Image);
       await updateProfile({profilePic:base64Image});
-    }
+    } 
+    reader.onerror=()=>{
+    toast.error("Failed to read image file");
+  }
 
   };
 
