@@ -11,21 +11,23 @@ import NoConversationPlaceHolder from "../components/NoConversationPlaceHolder";
 import ChatList from "../components/ChatList";
 
 const ChatPage = () => {
-  const { allContacts, getAllContacts,activeTab,selectedUser, } = useChatStore();
+  const { allContacts, getAllContacts, activeTab, selectedUser } =
+    useChatStore();
   return (
-    <div className="relative w-full max-w-6xl h-[800px] z-10">
+
+    <div className="relative w-full max-w-6xl h-[800px] text-slate-100 ">
       <BorderAnimatedContainer>
         {/* Left Side */}
         <div className="w-80 bg-slate-800/50 backdrop-blur-sm flex flex-col">
           <ProfileHeader />
           <ActiveTabSwitch />
-        </div>
-        <div className="flex-1 overflow-y-auto p-4 space-y-2">
-          {activeTab==="chats"?<ChatList/>:<ContactList/>}
+          <div className="flex-1 overflow-y-auto p-4 space-y-2">
+            {activeTab === "chats" ? <ChatList /> : <ContactList />}
+          </div>
         </div>
         {/* Right Side */}
         <div className="flex-1 flex flex-col bg-slate-900/50 backdrop-blur-sm">
-          {selectedUser?<ChatContainer/>:<NoConversationPlaceHolder/>}
+          {selectedUser ? <ChatContainer /> : <NoConversationPlaceHolder />}
         </div>
       </BorderAnimatedContainer>
     </div>

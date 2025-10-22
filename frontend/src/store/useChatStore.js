@@ -9,6 +9,8 @@ export const useChatStore = create((set,get) => ({
   activeTab: "chats",
   selectedUser: null,
   isUsersLoading: false,
+  isContactsLoading: false,
+  isChatsLoading: false,
   isMessagesLoading: false,
   isSoundEnabled: JSON.parse(localStorage.getItem("isSoundEnabled"))===true,
 
@@ -22,17 +24,30 @@ export const useChatStore = create((set,get) => ({
 
   getAllContacts:async (user)=>{
     try {
-        set({isUsersLoading:true});
+        set({isContactsLoading:true});
         const res=await axioInstance.get("/messages/contacts");
         // console.log(res.data);
-        set({allContacts:res?.data?.filteredUsers??[]});
+        set({allContacts:res.data.filteredUsers??[]});
     } catch (error) {
         // console.log("Error in getting all contacts frontend:",error);
         toast.error(error?.response?.data?.message || "Internal Server Error");
     }finally{
-        set({isUsersLoading:false});
+        set({isContactsLoading:false});
     }
   },
-  getMyChatPartners:(tab)=>{set({activeTab:tab})},
+  getMyChatPartners:async (user)=>{
+    try {
+        set({isChatsLoading:true});
+        const res=await axioInstance.get("/messages/chats");
+        // console.log(res.data);
+        set({chats:res.data});
+    } catch (error) {
+        // console.log("Error in getting all contacts frontend:",error);
+        toast.error(error?.response?.data?.message || "Internal Server Error");
+    }finally{
+        set({isChatsLoading:false});
+    }
+
+  },
 
 }));
