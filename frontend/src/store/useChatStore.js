@@ -1,6 +1,7 @@
 import {create} from "zustand";
 import { axioInstance } from "../lib/axios";
 import toast from "react-hot-toast";
+import { sendMessage } from "../../../backend/src/controllers/message.controller";
 
 export const useChatStore = create((set, get) => ({
   allContacts: [],
@@ -64,4 +65,16 @@ export const useChatStore = create((set, get) => ({
       set({ isMessagesLoading: false });
     }
   },
+
+  sendMessage: async(messageData)=>{
+    try {
+      const {selectedUser,messages}=get();
+      const res=await axioInstance.post(`/messages/send/${selectedUser?._id}`,messageData);
+      set({messages:messages.concat(res.data)})
+    } catch (error) {
+      console.log("failed in sending message:-",error);
+      toast.error(error.response?.data?.message||"Something went wrong");
+    }
+  }
+
 }));
