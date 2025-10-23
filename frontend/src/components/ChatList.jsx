@@ -8,7 +8,6 @@ const ChatList = () => {
   useEffect(()=>{
     getMyChatPartners();
   },[getMyChatPartners]);
-  console.log(chats);
   if(isUsersLoading)return <UserLoadingSkeleton/>;
   if(chats.length===0)return <NoChatsFound/>;
 
