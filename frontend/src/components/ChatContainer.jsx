@@ -52,7 +52,7 @@ const ChatContainer = () => {
         ): isMessageLoading?(<MessagesLoadingSkeleton/>) : (
           <NoChatHistoryPlaceHolder name={selectedUser.fullname} />
         )}
-        {/* <MessageInput /> */}
+        <MessageInput />
       </div>
     </>
   );
