@@ -10,7 +10,7 @@ const ChatContainer = () => {
     selectedUser,
     getMessagesByUserId,
     messages,
-    isMessageLoading,
+    isMessagesLoading,
     subscribeToMessages,
     unsubscribeFromMessages,
   } = useChatStore();
@@ -22,7 +22,7 @@ const ChatContainer = () => {
     subscribeToMessages();
     // console.log(subscribeToMessages);
     //clean up
-    return () => unsubscribeFromMessages();
+    return ()=>unsubscribeFromMessages();
   }, [
     getMessagesByUserId,
     selectedUser,
@@ -40,19 +40,21 @@ const ChatContainer = () => {
     <>
       <ChatHeader />
       <div className="flex-1 px-6 overflow-y-auto py-8 ">
-        {messages.length > 0 && !isMessageLoading ? (
+        {messages.length > 0 && !isMessagesLoading ? (
           <div className="max-w-3xl mx-auto space-y-6">
             {messages.map((msg) => (
               <div
                 key={msg._id}
-                className={`chat ${msg.senderId === authUser._id ? "chat-end" : "chat-start"
-                  }`}
+                className={`chat ${
+                  msg.senderId === authUser._id ? "chat-end" : "chat-start"
+                }`}
               >
                 <div
-                  className={`chat-bubble relative ${msg.senderId === authUser._id
+                  className={`chat-bubble relative ${
+                    msg.senderId === authUser._id
                       ? "bg-cyan-600 text-white"
                       : "bg-slate-800 text-slate-200"
-                    }`}
+                  }`}
                 >
                   {msg.image && (
                     <img
@@ -74,7 +76,7 @@ const ChatContainer = () => {
             {/* Scroll target */}
             <div ref={messageEndRef} />
           </div>
-        ) : isMessageLoading ? (
+        ) : isMessagesLoading ? (
           <MessagesLoadingSkeleton />
         ) : (
           <NoChatHistoryPlaceHolder name={selectedUser.fullname} />
