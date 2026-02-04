@@ -1,14 +1,7 @@
-<<<<<<< HEAD
 import { create } from "zustand";
 import { axioInstance } from "../lib/axios";
 import toast from "react-hot-toast";
 import { useAuthStore } from "./useAuthStore";
-=======
-import {create} from "zustand";
-import { axioInstance } from "../lib/axios";
-import toast from "react-hot-toast";
-import { sendMessage } from "../../../backend/src/controllers/message.controller";
->>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
 
 export const useChatStore = create((set, get) => ({
   allContacts: [],
@@ -66,18 +59,13 @@ export const useChatStore = create((set, get) => ({
       const res = await axioInstance.get(`/messages/${userId}`);
       set({ messages: res.data });
     } catch (error) {
-<<<<<<< HEAD
       console.log("Error in fetching user messages in chat:-", error);
-=======
-      console.log("Error in fetching user messages in chat:-",error);
->>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
       toast.error(error?.response?.data?.message || "Something went Error");
     } finally {
       set({ isMessagesLoading: false });
     }
   },
 
-<<<<<<< HEAD
   sendMessage: async (messageData) => {
     const { messages, selectedUser } = get();
     const { authUser } = useAuthStore.getState();
@@ -142,17 +130,4 @@ export const useChatStore = create((set, get) => ({
     const socket = useAuthStore.getState().socket;
     socket.off("newMessages");
   },
-=======
-  sendMessage: async(messageData)=>{
-    try {
-      const {selectedUser,messages}=get();
-      const res=await axioInstance.post(`/messages/send/${selectedUser?._id}`,messageData);
-      set({messages:messages.concat(res.data)})
-    } catch (error) {
-      console.log("failed in sending message:-",error);
-      toast.error(error.response?.data?.message||"Something went wrong");
-    }
-  }
-
->>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
 }));

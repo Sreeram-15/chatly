@@ -1,35 +1,24 @@
 import { create } from "zustand";
 import { axioInstance } from "../lib/axios";
 import toast from "react-hot-toast";
-<<<<<<< HEAD
 import {io} from "socket.io-client";
 
 const BASE_URL=import.meta.env.MODE==='development'?"http://localhost:3000":"/";
 export const useAuthStore = create((set,get) => ({
-=======
-
-export const useAuthStore = create((set) => ({
->>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
   authUser: null,
   isCheckingAuth: true,
   isSigningUp: false,
   isLoggingIn: false,
   isLoggingOut: false,
   isProfileUpdating: false,
-<<<<<<< HEAD
   socket: null,
   onlineUsers:[],
-=======
->>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
 
   checkAuth: async () => {
     try {
       const res = await axioInstance.get("/auth/check");
       set({ authUser: res.data });
-<<<<<<< HEAD
       get().connectSocket();
-=======
->>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
     } catch (error) {
       // console.log("Error in AuthCheck:",error);
       set({ authUser: null });
@@ -46,10 +35,7 @@ export const useAuthStore = create((set) => ({
       const res = await axioInstance.post("/auth/signup", data);
       set({ authUser: res.data });
       toast.success("Account created successfully");
-<<<<<<< HEAD
       get().connectSocket();
-=======
->>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
     } catch (error) {
       // console.log("Error in signingup:-",error);
       toast.error(
@@ -66,13 +52,8 @@ export const useAuthStore = create((set) => ({
       set({ isLoggingIn: true });
       const res = await axioInstance.post("/auth/login", data);
       set({ authUser: res.data });
-<<<<<<< HEAD
       get().connectSocket();
       toast.success("Welcome Back");
-      get().connectSocket();
-=======
-      toast.success("Welcome Back");
->>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
     } catch (error) {
       // console.log("Error in signingup:-",error);
       toast.error(
@@ -90,10 +71,7 @@ export const useAuthStore = create((set) => ({
       const res = await axioInstance.post("/auth/logout");
       set({ authUser: null });
       toast.success("Logged out successfully");
-<<<<<<< HEAD
       get().disconnectSocket();
-=======
->>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
     } catch (error) {
       // console.log("Error in logging Out:",error);
       toast.error(
@@ -122,7 +100,6 @@ export const useAuthStore = create((set) => ({
       set({ isProfileUpdating: false });
     }
   },
-<<<<<<< HEAD
 
   connectSocket:()=>{
     const {authUser}=get();
@@ -150,6 +127,4 @@ export const useAuthStore = create((set) => ({
       // console.log("User disconnected successfully:-",get().socket.connected);
     }
   }
-=======
->>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
 }));

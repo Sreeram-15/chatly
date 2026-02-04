@@ -24,11 +24,8 @@
   "homepage": "https://github.com/Sreeram-15/chatly#readme",
   "dependencies": {
     "resend": "^6.0.2"
-<<<<<<< HEAD
   },
   "devDependencies": {
     "process": "^0.11.10"
-=======
->>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
   }
 }

@@ -6,12 +6,8 @@ import { connectDb } from './lib/db.js';
 import { ENV } from './lib/env.js';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
-<<<<<<< HEAD
 import { app,io,server } from './lib/socket.js';
 // const app=express();
-=======
-const app=express();
->>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
 const PORT=ENV.PORT||3000;
 const __dirname=path.resolve();
 
@@ -30,14 +26,8 @@ if(ENV.NODE_ENV==="production"){
 });
 }
 // console.log(ENV);
-<<<<<<< HEAD
 server.listen(PORT,()=>{
     console.log(`hello from server by port ${PORT}`);
     connectDb();
     // console.log(io);
-=======
-app.listen(PORT,()=>{
-    console.log(`hello from server by port ${PORT}`);
-    connectDb();
->>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
 });
