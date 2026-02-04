@@ -45,6 +45,7 @@ export const signup = async (req, res) => {
         fullname: savedUser.fullname,
         email: savedUser.email,
         profilePic: savedUser.profilePic,
+      });
       try {
         await sendWelcomeEmail(
           savedUser.email,
