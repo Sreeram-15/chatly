@@ -51,7 +51,7 @@ export const sendMessage = async (req, res) => {
     if(senderId.equals(reciverId)){
         return res.status(400).json({message:"Cannot send Message to yourself"});
     }
-    const reciverExists=await User.find({_id:reciverId});
+    const reciverExists=await User.findOne({_id:reciverId});
     if(!reciverExists){
         return res.status(404).json({message:"Reciver Not found"});
     }
@@ -78,7 +78,7 @@ export const sendMessage = async (req, res) => {
     res.status(201).json(newMessage);
   } catch (error) {
     console.log("Error in Send Controller:-", error);
-    res.status(505).json({ message: "Internal Server Error" });
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
