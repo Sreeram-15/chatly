@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useEffect, useRef } from "react";
+=======
+import React, { useEffect } from "react";
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
 import ChatHeader from "./ChatHeader";
@@ -6,6 +10,7 @@ import NoChatHistoryPlaceHolder from "./NoChatHistoryPlaceHolder";
 import MessageInput from "./MessageInput";
 import MessagesLoadingSkeleton from "./MessagesLoadingSkeleton";
 const ChatContainer = () => {
+<<<<<<< HEAD
   const {
     selectedUser,
     getMessagesByUserId,
@@ -35,12 +40,25 @@ const ChatContainer = () => {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
+=======
+  const { selectedUser, getMessagesByUserId, messages, isMessageLoading } =
+    useChatStore();
+  const { authUser } = useAuthStore();
+
+  useEffect(() => {
+    getMessagesByUserId(selectedUser._id);
+  }, [getMessagesByUserId, selectedUser]);
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
 
   return (
     <>
       <ChatHeader />
       <div className="flex-1 px-6 overflow-y-auto py-8 ">
+<<<<<<< HEAD
         {messages.length > 0 && !isMessagesLoading ? (
+=======
+        {messages.length > 0 && !isMessageLoading ? (
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
           <div className="max-w-3xl mx-auto space-y-6">
             {messages.map((msg) => (
               <div
@@ -65,14 +83,19 @@ const ChatContainer = () => {
                   )}
                   {msg.text && <p className="mt-2">{msg.text}</p>}
                   <p className="text-xs mt-1 opacity-75 flex items-center gap-1">
+<<<<<<< HEAD
                     {new Date(msg.createdAt).toLocaleTimeString(undefined, {
                       hour: "2-digit",
                       minute: "2-digit",
                     })}
+=======
+                    {new Date(msg.createdAt).toISOString().slice(11, 16)}
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
                   </p>
                 </div>
               </div>
             ))}
+<<<<<<< HEAD
             {/* Scroll target */}
             <div ref={messageEndRef} />
           </div>
@@ -83,6 +106,12 @@ const ChatContainer = () => {
         )}
         {/* con */}
         {/* {console.log("about to paint messageInput component")} */}
+=======
+          </div>
+        ): isMessageLoading?(<MessagesLoadingSkeleton/>) : (
+          <NoChatHistoryPlaceHolder name={selectedUser.fullname} />
+        )}
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
         <MessageInput />
       </div>
     </>

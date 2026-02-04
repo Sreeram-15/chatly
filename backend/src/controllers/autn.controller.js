@@ -44,7 +44,11 @@ export const signup = async (req, res) => {
         _id: savedUser._id,
         fullname: savedUser.fullname,
         email: savedUser.email,
+<<<<<<< HEAD
         profilePic: savedUser.profilePic,
+=======
+        profilPic: savedUser.profilPic,
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
       });
       try {
         await sendWelcomeEmail(
@@ -87,7 +91,11 @@ export const login = async (req, res) => {
       _id: user._id,
       fullname: user.fullname,
       email: user.email,
+<<<<<<< HEAD
       profilePic: user.profilePic,
+=======
+      profilPic: user.profilePic,
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
     });
   } catch (error) {
     // console.error("Error in login controller: ", error);

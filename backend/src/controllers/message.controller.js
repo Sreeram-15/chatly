@@ -2,7 +2,10 @@ import { Types } from "mongoose";
 import cloudinary from "../lib/cloudinary.js";
 import Message from "../models/Message.js";
 import User from "../models/User.js";
+<<<<<<< HEAD
 import { getRecieverSocketId, io } from "../lib/socket.js";
+=======
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
 
 export const getAllContacts = async (req, res) => {
   try {
@@ -51,7 +54,11 @@ export const sendMessage = async (req, res) => {
     if(senderId.equals(reciverId)){
         return res.status(400).json({message:"Cannot send Message to yourself"});
     }
+<<<<<<< HEAD
     const reciverExists=await User.findOne({_id:reciverId});
+=======
+    const reciverExists=await User.find({_id:reciverId});
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
     if(!reciverExists){
         return res.status(404).json({message:"Reciver Not found"});
     }
@@ -68,17 +75,25 @@ export const sendMessage = async (req, res) => {
     });
     // console.log("sending message securely");
     await newMessage.save();
+<<<<<<< HEAD
 
     //todo:send message in realtime if user is in online through socket.io
     const recieverSocketId=getRecieverSocketId(reciverId);
     if(recieverSocketId){
       io.to(recieverSocketId).emit("newMessages",newMessage);
     }
+=======
+    //todo:send message in realtime if user is in online through socket.io
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
 
     res.status(201).json(newMessage);
   } catch (error) {
     console.log("Error in Send Controller:-", error);
+<<<<<<< HEAD
     res.status(500).json({ message: "Internal Server Error" });
+=======
+    res.status(505).json({ message: "Internal Server Error" });
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
   }
 };
 

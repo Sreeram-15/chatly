@@ -1,7 +1,15 @@
+<<<<<<< HEAD
 import React, { useRef, useState } from "react";
 import useKeyBoardSound from "../hooks/useKeyBoardSound.js";
 import { useChatStore } from "../store/useChatStore.js";
 import { ImageIcon, SendIcon, XIcon } from "lucide-react";
+=======
+import React, { useState } from "react";
+import useKeyBoardSound from "../hooks/useKeyBoardSound";
+import { useRef } from "react";
+import { useChatStore } from "../store/useChatStore";
+import { XIcon } from "lucide-react";
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
 
 const MessageInput = () => {
   const { playRandomKeyStrokeSound } = useKeyBoardSound();
@@ -19,12 +27,20 @@ const MessageInput = () => {
       image: imagePreview,
     });
     setText("");
+<<<<<<< HEAD
     setImagePreview(null);
+=======
+    setImagePreview("");
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   const handleImageChange = (e) => {
+<<<<<<< HEAD
     const file = e.target.files?.[0];
+=======
+    const file = e.target.files[0];
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
     if (!file.type.startsWith("image/")) {
       toast.error("Please select an image file");
       return;
@@ -35,6 +51,7 @@ const MessageInput = () => {
     reader.readAsDataURL(file);
   };
 
+<<<<<<< HEAD
   const removeImage = () => {
     setImagePreview(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
@@ -43,6 +60,16 @@ const MessageInput = () => {
   return (
     <div className="p-4 border-t border-slate-700/50">
       {imagePreview && (
+=======
+  const removeImage=()=>{
+    setImagePreview(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  }
+
+  return <div className="p-4 border-t border-slate-700/50">
+        {/*
+             {imagePreview && (
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
         <div className="max-w-3xl mx-auto mb-3 flex items-center">
           <div className="relative">
             <img
@@ -60,10 +87,15 @@ const MessageInput = () => {
           </div>
         </div>
       )}
+<<<<<<< HEAD
       <form
         onSubmit={handleSendMessage}
         className="max-w-3xl mx-auto flex space-x-4"
       >
+=======
+
+      <form onSubmit={handleSendMessage} className="max-w-3xl mx-auto flex space-x-4">
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
         <input
           type="text"
           value={text}
@@ -71,9 +103,16 @@ const MessageInput = () => {
             setText(e.target.value);
             isSoundEnabled && playRandomKeyStrokeSound();
           }}
+<<<<<<< HEAD
           className="flex-1 bg-slate-800/50 border border-slate-800/50 rounded-lg py-2 px-4"
           placeholder="Type your message..."
         />
+=======
+          className="flex-1 bg-slate-800/50 border border-slate-700/50 rounded-lg py-2 px-4"
+          placeholder="Type your message..."
+        />
+
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
         <input
           type="file"
           accept="image/*"
@@ -81,27 +120,48 @@ const MessageInput = () => {
           onChange={handleImageChange}
           className="hidden"
         />
+<<<<<<< HEAD
         <button
           type="button"
           onClick={() => fileInputRef.current?.click()}
           className={`bg-slate-800/50 text-slate-400 hover:text-slate-200 rounded-lg px-4
               transition-colors${imagePreview ? "text-cyan-500" : ""}
               `}
+=======
+
+        <button
+          type="button"
+          onClick={() => fileInputRef.current?.click()}
+          className={`bg-slate-800/50 text-slate-400 hover:text-slate-200 rounded-lg px-4 transition-colors ${
+            imagePreview ? "text-cyan-500" : ""
+          }`}
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
         >
           <ImageIcon className="w-5 h-5" />
         </button>
         <button
           type="submit"
+<<<<<<< HEAD
           disabled={!text.trim && !imagePreview}
           className="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-lg px-4 py-2 
               font-medium hover:from-cyan-600 hover:to-cyan-700 transition-all disabled:opacity-50 
               disabled:cursor-not-allowed"
+=======
+          disabled={!text.trim() && !imagePreview}
+          className="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white rounded-lg px-4 py-2 font-medium hover:from-cyan-600 hover:to-cyan-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
         >
           <SendIcon className="w-5 h-5" />
         </button>
       </form>
+<<<<<<< HEAD
     </div>
   );
+=======
+        */}
+
+    </div>;
+>>>>>>> 1cf7ab5398a0ccf456622c8aefa5d87d35476e7b
 };
 
 export default MessageInput;
